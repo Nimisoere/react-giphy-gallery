@@ -1,0 +1,51 @@
+main {
+  font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+  width: 100%;
+  text-align: center;
+  color: blue;
+}
+form {
+  display: flex;
+  margin: 20px 0 20px 0;
+  font-size: medium;
+}
+.search_input {
+  border-radius: 5px;
+  height: 3em;
+  margin-right: 10px;
+  width: 85%;
+  border: 1px solid blue;
+  padding-left: 1em;
+}
+.search_input::-webkit-input-placeholder {
+  color: blue;
+}
+
+.search_button {
+  height: 3.3em;
+  width: 10em;
+  border-radius: 5px;
+  border: none;
+  background: blue;
+  color: #fff;
+  cursor: pointer;
+}
+.search_button:disabled {
+  background: rgb(120, 144, 253);
+}
+p {
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+}
+.clear {
+  font-size: small;
+  padding: 4px 20px;
+  border: 1px solid blue;
+  color: blue;
+  border-radius: 5px;
+  margin-left: 1rem;
+  cursor: pointer;
+}
