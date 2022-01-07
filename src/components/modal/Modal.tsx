@@ -26,7 +26,7 @@ const Modal: React.FC<Props> = ({ modalGif, setModalGif }) => {
         setModalGif({} as IGif);
       }}
     >
-      <Gif gif={modalGif} width={500} />
+      <Gif gif={modalGif} width={500} hideAttribution={true} />
     </div>
   );
 };

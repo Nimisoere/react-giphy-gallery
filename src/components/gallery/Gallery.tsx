@@ -21,13 +21,16 @@ const Gallery: React.FC<Props> = ({
   width,
   fetchGifs,
   setWidth,
+  ...props
 }) => (
   <>
     <Grid
       onGifClick={onGifClick}
       fetchGifs={fetchGifs}
       width={width}
-      columns={3}
+      columns={8}
+      className="gallery"
+      hideAttribution={true}
       gutter={6}
       key={keyValue}
       noResultsMessage={<p>No result found</p>}
