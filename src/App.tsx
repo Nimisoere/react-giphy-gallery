@@ -6,23 +6,31 @@ import { useState, useRef, FormEvent } from "react";
 import "./App.css";
 
 const App = () => {
-  const [modalGif, setModalGif] = useState({} as IGif);
-  const [searchValue, setSearchValue] = useState("");
+  const [modalGif, setModalGif] = useState<IGif | null>(null);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  console.log(modalGif);
+
   const inputElement = useRef<HTMLInputElement>(null);
+
   const fetchGifs = (offset: number) =>
     giphyFetch.trending({ offset, limit: 20 });
+
   const fetchSearchedGifs = (offset: number) =>
     giphyFetch.search(searchValue, {
       sort: "recent",
       offset,
       limit: 20,
     });
+
   const searchHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputElement && inputElement.current) {
       setSearchValue(inputElement.current.value);
     }
   };
+
   const clearSearchWord = () => {
     setSearchValue("");
     if (inputElement && inputElement.current) {
@@ -30,7 +38,13 @@ const App = () => {
     }
   };
 
-  const [width, setWidth] = useState(window.innerWidth);
+  const handleGifClick = (
+    gif: IGif,
+    e: React.SyntheticEvent<HTMLElement, Event>
+  ) => {
+    e.preventDefault();
+    setModalGif(gif);
+  };
 
   return (
     <main>
@@ -44,36 +58,29 @@ const App = () => {
           ref={inputElement}
           placeholder="Search with any keyword e.g laugh"
         />
-        <button className="search_button" id="search_button">
+        <button type="submit" className="search_button" id="search_button">
           Search
         </button>
       </form>
 
-      {searchValue.length ? (
+      {!!searchValue.length && (
         <p>
           Showing results for: {searchValue}{" "}
-          <span onClick={clearSearchWord} className="clear">
+          <button onClick={clearSearchWord} className="clear">
             Clear
-          </span>
+          </button>
         </p>
-      ) : (
-        ""
       )}
+
       <Gallery
         width={width}
         fetchGifs={searchValue.length ? fetchSearchedGifs : fetchGifs}
         setWidth={setWidth}
         keyValue={searchValue}
-        onGifClick={(gif, e) => {
-          e.preventDefault();
-          setModalGif(gif);
-        }}
+        onGifClick={handleGifClick}
       />
-      {Object.keys(modalGif).length ? (
-        <Modal modalGif={modalGif} setModalGif={setModalGif} />
-      ) : (
-        ""
-      )}
+
+      {!!modalGif && <Modal modalGif={modalGif} setModalGif={setModalGif} />}
     </main>
   );
 };

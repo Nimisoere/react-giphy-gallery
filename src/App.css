@@ -46,6 +46,7 @@ p {
   padding: 4px 20px;
   border: 1px solid blue;
   color: blue;
+  background-color: transparent;
   border-radius: 5px;
   margin-left: 1rem;
   cursor: pointer;

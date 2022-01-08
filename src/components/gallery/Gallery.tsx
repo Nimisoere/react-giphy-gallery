@@ -15,32 +15,27 @@ type Props = {
   ) => void | undefined;
 };
 
-const Gallery: React.FC<Props> = ({
-  onGifClick,
-  keyValue,
-  width,
-  fetchGifs,
-  setWidth,
-  ...props
-}) => (
-  <>
-    <Grid
-      onGifClick={onGifClick}
-      fetchGifs={fetchGifs}
-      width={width}
-      columns={8}
-      className="gallery"
-      hideAttribution={true}
-      gutter={6}
-      key={keyValue}
-      noResultsMessage={<p>No result found</p>}
-    />
-    <ResizeObserver
-      onResize={({ width }) => {
-        setWidth(width);
-      }}
-    />
-  </>
+const Gallery: React.FC<Props> = React.memo(
+  ({ onGifClick, keyValue, width, fetchGifs, setWidth }) => (
+    <>
+      <Grid
+        onGifClick={onGifClick}
+        fetchGifs={fetchGifs}
+        width={width}
+        columns={8}
+        className="gallery"
+        hideAttribution={true}
+        gutter={6}
+        key={keyValue}
+        noResultsMessage={<p>No result found</p>}
+      />
+      <ResizeObserver
+        onResize={({ width }) => {
+          setWidth(width);
+        }}
+      />
+    </>
+  )
 );
 
 export default Gallery;

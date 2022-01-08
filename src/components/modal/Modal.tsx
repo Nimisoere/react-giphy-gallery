@@ -4,7 +4,7 @@ import { Gif } from "@giphy/react-components";
 
 type Props = {
   modalGif: IGif;
-  setModalGif: (gif: IGif) => void;
+  setModalGif: (gif: IGif | null) => void;
 };
 const modalStyles: React.CSSProperties = {
   position: "fixed",
@@ -17,17 +17,15 @@ const modalStyles: React.CSSProperties = {
   alignItems: "center",
   background: "rgba(0, 0, 0, .8)",
 };
-const Modal: React.FC<Props> = ({ modalGif, setModalGif }) => {
-  return (
-    <div
-      style={{ ...modalStyles }}
-      onClick={(e) => {
-        e.preventDefault();
-        setModalGif({} as IGif);
-      }}
-    >
-      <Gif gif={modalGif} width={500} hideAttribution={true} />
-    </div>
-  );
-};
+const Modal: React.FC<Props> = React.memo(({ modalGif, setModalGif }) => (
+  <div
+    style={{ ...modalStyles }}
+    onClick={(e) => {
+      e.preventDefault();
+      setModalGif(null);
+    }}
+  >
+    <Gif gif={modalGif} width={500} hideAttribution={true} />
+  </div>
+));
 export default Modal;
